@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovers Day</title>
+    <style>
+        @font-face {
+            font-family: 'Atwritter';
+            src: url('src/fonts/atwriter.ttf');
+        }
+
+        @font-face {
+            font-family: 'LoveCha';
+            src: url(src/fonts/LoveCha-Regular.ttf);
+        }
+
+        html {
+            cursor: url(src/images/like.png), auto;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(255, 27, 65);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        main {
+            width: 60%;
+            height: auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 10px 10px 20px #1313139c ;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'LoveCha';
+            color: rgb(255, 27, 65);
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-family: 'Atwritter';
+            font-size: 16px;
+        }
+        
+        .buttons {
+            padding: 15px 20px;
+            margin: 5px;
+            background-color: rgb(255, 27, 65);
+            border: 2px solid #ffd6d6;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #yes {
+            margin-left: -80px;
+            cursor: url(src/images/lips.png), auto;
+        }
+
+        #no {
+            position: absolute;
+        }
+
+        #bear {
+            margin: 20px 0px;
+        }
+
+        article {
+            display: none;
+            width: 90%;
+        }
+
+        article > p {
+            font-size: 40px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        article > p::after {
+            content: '|';
+            margin-left: 5px;
+            opacity: 1;
+            animation: blink .7s infinite;
+        }
+
+        @keyframes blink {
+           0%, 100% {
+            opacity: 1;
+           }
+           50% {
+            opacity: 0;
+           } 
+        }
+
+        @media screen and (max-width: 700px) {
+            #bear {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <h1>HAPPY LOVE DAY</h1>
+        <p>Do you want to open this mysterious letter?</p>
+        <div>
+            <button onclick="showGif()" id="yes" class="buttons">YES!</button>
+            <button onmouseover="escape()" id="no" class="buttons">NO!</button>
+        </div>
+        <img id="bear" src="src/images/bear1.png">
+    </main>
+
+    <article>
+        <p id="text">Our love is like a star in the sky, always shining, even on the darkest nights. I can say that in your eyes, I see my future and in your heart, I find my present.</p>
+    </article>
+
+    <script>
+        function escape() {
+            var btnNo = document.getElementById("no");
+            var image = document.getElementById("bear");
+
+            var windowWidth = window.innerWidth;
+            var windowHeight = window.innerHeight;
+            
+            var maxX = windowWidth - btnNo.offsetWidth;
+            var maxY = windowHeight - btnNo.offsetHeight;
+
+            var randomX = Math.floor(Math.random() * maxX);
+            var randomY = Math.floor(Math.random() * maxY);
+
+            btnNo.style.left = randomX + "px";
+            btnNo.style.top = randomY + "px";
+
+            image.src = "src/images/bear2.png";
+        }
+
+        function showGif() {
+            var gif = document.getElementById("bear");
+
+            gif.src = "src/images/bear3.png";
+
+            setTimeout(function() {
+                var letter = document.querySelector("main");
+                var message = document.querySelector("article");
+                var text = document.querySelector("#text");
+                var body = document.querySelector('body');
+
+                letter.style.cssText = 'display: none;';
+                body.style.backgroundColor = '#000';
+        
+                function typeWriter(textContent) {
+                    const textArray = textContent.innerHTML.split('');
+                    textContent.innerHTML = '';
+                    message.style.cssText = 'display: block;';
+
+                    textArray.forEach((letter, index) => {
+                        setTimeout(() => textContent.innerHTML += letter, 75 * index);
+                    });
+                }
+                typeWriter(text);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
